@@ -15,6 +15,20 @@ namespace MvcMovie.Controllers
             return View();
         }
 
+        //GET: /HelloWolrd/Enter/
+        public ActionResult Enter(string user, string pass)
+        {
+            try
+            {
+                return Content("1");
+
+            }
+            catch(Exception ex)
+            {
+                return Content("error que pasa:("+ex.Message);
+            }
+        }
+
         // 
         // GET: /HelloWorld/Welcome/ 
         public ActionResult Welcome(string name, int numTimes = 1)
@@ -24,5 +38,7 @@ namespace MvcMovie.Controllers
 
             return View();
         }
+
+
     }
 }
