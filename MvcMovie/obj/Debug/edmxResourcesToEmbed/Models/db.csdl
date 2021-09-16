@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MvcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MvcEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="cstage" EntityType="MvcModel.cstage" />
+    <EntitySet Name="users" EntityType="MvcModel.users" />
+    <AssociationSet Name="FK_users_cstage" Association="MvcModel.FK_users_cstage">
+      <End Role="cstage" EntitySet="cstage" />
+      <End Role="users" EntitySet="users" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="cstage">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="users" Relationship="MvcModel.FK_users_cstage" FromRole="cstage" ToRole="users" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idState" Type="Int32" />
+    <NavigationProperty Name="cstage" Relationship="MvcModel.FK_users_cstage" FromRole="users" ToRole="cstage" />
+  </EntityType>
+  <Association Name="FK_users_cstage">
+    <End Type="MvcModel.cstage" Role="cstage" Multiplicity="0..1" />
+    <End Type="MvcModel.users" Role="users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cstage">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="idState" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
